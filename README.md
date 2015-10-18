@@ -4,7 +4,7 @@ I'm currently in the process or learning how to use Redux for React. As I'll
 probably be creating multiple projects in the future based on this stack I
 thought it would be nice to have a base-template for these projects.
 
-** Disclaimer:** This will reflect a stack of tools and a project structure that
+**Disclaimer:** This will reflect a stack of tools and a project structure that
 works for me without implying that what I'm doing here adheres to any community
 best-practices 😉
 
@@ -24,3 +24,9 @@ cookiecutter https://github.com/zerok/cookiecutter-react-redux.git
 
 In order to work with the generated projected simply run `npm install && npm
 start`. You will have a server running on port 8080.
+
+
+## Future plans
+
+* Add a testing harness to the generated project
+* Integrate a basic XHR example
