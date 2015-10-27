@@ -3,11 +3,12 @@ var Gulp = require('gulp'),
     Gutil = require('gulp-util'),
     WebpackDevServer = require("webpack-dev-server"),
     webpack = require('webpack'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    _ = require('lodash');
 
 
 var webpackConfig = {
-    entry: './app/index.js',
+    entry: ['./app/index.js'],
     output: {
         path: Path.join(__dirname, 'public'),
         filename: 'bundle.js'
@@ -24,7 +25,10 @@ var webpackConfig = {
 Gulp.task('default', ['build']);
 
 Gulp.task('server', ['sass', 'sass:watch'], function(next) {
-    var compiler = webpack(webpackConfig);
+    var cfg = _.clone(webpackConfig, true)
+    cfg.entry.unshift("webpack-dev-server/client?http://localhost:8080");
+
+    var compiler = webpack(cfg);
 
     new WebpackDevServer(compiler, {
         contentBase: Path.join(__dirname, 'public'),
@@ -50,7 +54,15 @@ Gulp.task('sass:watch', function () {
 Gulp.task('build', ['sass', 'webpack']);
 
 Gulp.task('webpack', function(next) {
-    webpack(webpackConfig, function(err, stats) {
+    // For the production build we also want to optimize the generated JS a bit
+    // by running uglifyjs and dedupe over it.
+    var cfg = _.merge({}, webpackConfig, {
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin(),
+            new webpack.optimize.DedupePlugin()
+        ]
+    });
+    webpack(cfg, function(err, stats) {
         if (err) {
             throw new Gutil.PluginError('webpack', err);
         }
