@@ -1,1 +1,0 @@
-exports.SAMPLE_ACTION = 'SAMPLE_ACTION';

@@ -7,7 +7,7 @@ import {Provider, connect} from 'react-redux';
 import createHistory from 'history/lib/createHashHistory';
 
 import {simpleReducer} from './reducers';
-import ActionTypes from './actionTypes';
+import {performSampleAction} from './actions';
 import Error404Page from './containers/error404';
 
 
@@ -53,10 +53,7 @@ var App = React.createClass({
 
     _doAction(evt) {
         evt.preventDefault();
-        this.props.dispatch({
-            type: ActionTypes.SAMPLE_ACTION,
-            value: 123
-        });
+        this.props.dispatch(performSampleAction(123));
     }
 })
 

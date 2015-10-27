@@ -1,11 +1,11 @@
 import Immutable from 'immutable';
-import ActionTypes from '../actionTypes';
+import {SAMPLE_ACTION} from '../actions';
 
 
 export function simpleReducer(state = Immutable.Map({sampleProp: 0}), action) {
     console.log(action);
     switch(action.type) {
-    case ActionTypes.SAMPLE_ACTION:
+    case SAMPLE_ACTION:
         return state.set('sampleProp', action.value);
     default:
         return state;
