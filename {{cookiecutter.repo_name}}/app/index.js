@@ -73,14 +73,14 @@ App = connect((state) => {
 
 
 const routes = (
-    <Provider store={store}>{() => (
+    <Provider store={store}>
         <ReduxRouter>
             <Route path="/" component={App}>
                 // Add your sub-containers here
                 <Route path="*" component={Error404Page} />
             </Route>
         </ReduxRouter>
-    )}</Provider>
+    </Provider>
 );
 
 React.render(routes, document.body);
