@@ -1,5 +1,5 @@
 import Immutable from 'immutable';
-import {SAMPLE_ACTION} from '../actions';
+import {SAMPLE_ACTION} from '../actiontypes';
 
 
 export function simpleReducer(state = Immutable.Map({sampleProp: 0}), action) {

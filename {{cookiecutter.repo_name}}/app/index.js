@@ -1,17 +1,20 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import thunk from 'redux-thunk';
 import {Router, Link, Route, Redirect} from 'react-router';
 import {reduxReactRouter, ReduxRouter, routerStateReducer} from 'redux-router';
-import {compose, combineReducers, createStore} from 'redux';
+import {applyMiddleware, compose, combineReducers, createStore} from 'redux';
 import {Provider, connect} from 'react-redux';
 // Change this if you want to have non-hash-URLs
 import createHistory from 'history/lib/createHashHistory';
 
 import {simpleReducer} from './reducers';
-import {performSampleAction} from './actions';
+import performSampleAction from './actions/sample';
 import Error404Page from './containers/error404';
 
 
 const store = compose(
+    applyMiddleware(thunk),
     reduxReactRouter({
         createHistory
     })
@@ -53,7 +56,7 @@ var App = React.createClass({
 
     _doAction(evt) {
         evt.preventDefault();
-        this.props.dispatch(performSampleAction(123));
+        this.props.performSampleAction(123);
     }
 })
 
@@ -69,6 +72,8 @@ App = connect((state) => {
     return {
         'sampleProp': state.simple.get('sampleProp')
     };
+}, {
+    performSampleAction
 })(App);
 
 
@@ -83,4 +88,4 @@ const routes = (
     </Provider>
 );
 
-React.render(routes, document.body);
+ReactDOM.render(routes, document.body);
